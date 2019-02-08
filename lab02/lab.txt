@@ -1,6 +1,7 @@
 2.1
 a. Both the Hill-climbing and simulated solutions successfully return the global maximum.
-b. The difference in the time which each algorithm needs is minimal.
+b. With delta set to 1, the hill climb algorithm was faster.  With delta set to 0.001, the simulated annealing algorithm
+   was faster.
 c. The starting value for x makes no difference because there is only one maximum in the function.
 d. Changes in the delta value decrease the quality of the solution for both algorithms.  At very high delta values,
    (delta = 100), the two algorithms return the initial value.  At numbers close to the default value of 1 (single digit
@@ -28,9 +29,39 @@ a. Both algorithms do significantly worse on this problem space than on the abso
 b. The starting value makes a large difference, as it controls how close the hill-climbing algorithm and, to a lesser
    extent, the simulated annealing algorithm come to returning the true global maximum, for reasons outlined in 2.2.a.
 c. Changing the step size does little to change how the algorithms operate; it only changes how far afield they go in
-   looking for the highest point.  The higher the delta value is, the further away the algorithms look.
-d. Theoretically, the maximum possible value that can be returned is 30, but, unless implemented, there are no limits
-   to how far afield the algorithms can go to find a peak, so the maximum possible value is 0.  The theoretical minimum
-   possible value is the peak at x=2.03, with a value of 1.82.  However, because the simulated annealing algorithm can
-   return values less than the max that it found, it is technically possible for that algorithm to return a value less
-   than this number, although such a number would not go less than 0.
+   looking for the highest point.  The higher the delta value is, the further away the algorithms look.  If the maximum
+   value of x is unlimited, then, as long as the function returns a larger and larger value corresponding to x, the
+   algorithms will keep looking at larger and larger values of x.
+d. If the maximum value of x is limited to 30, the maximum possible value that can be returned is 30, but there are no
+   limits to how far afield the algorithms can go to find a peak, so the maximum possible value is unlimited.  The
+   theoretical minimum possible value is the peak at x=2.03, with a value of 1.82.  However, because the simulated
+   annealing algorithm can return values less than the max that it found, it is technically possible for that algorithm
+   to return a value less than this number, although such a number would not go less than 0.
+
+2.3
+a. Running a random restart with the hill climbing algorithm allows it to check for peaks beyond the first starting hill.
+   Since a hill-climbing algorithm never takes a step backward, it can only look find the peak of the hill that it is
+   on, and will ignore the potentially higher peak next to it.  The random restart allows the hill-climbing algorithm
+   to start on a new hill and determine if it is higher than the previous one, increasing the odds that the algorithm
+   will find the global maximum.
+   Implementing a random restart has less impact on the simulated annealing algorithm because of how the algorithm jumps
+   around.  However, it does give the algorithm more opportunities to make the right jumps and return the global
+   maximum value.
+b. Over 100 random starts, the hill-climbing algorithm returned an average peak of 14.8 and the simulated annealing
+   algorithm returned an average of 22.1.
+c. The simulated annealing algorithm does better because it has the ability to move to other higher hills when it takes
+   random steps back, while the hill-climbing algorithm is stuck in whatever hill it starts on and cannot explore other
+   hills.
+
+2.4
+a. Beam search would work well for a simulated annealing algorithm because it would reduce the impact of an ill-timed
+   jump.  Because a beam search allows multiple possible solutions to be stored, it offers the possibility of undoing
+   a jump that moves to a hill with a lower peak.
+b. The number of solutions that could be maintained varies by computing platform, but, on my computer, the most possible
+   solutions that can be kept while keeping the total runtime for the tests under 0.1 seconds is eight.  Given that each
+   scenario requires only two floats, this should not require an excessive amount of memory.
+c. To modify the code to run a beam search, one would need to add one or more data structures to hold the alternate
+   solutions, code to continue searching from these solutions, and some heuristic function that determines which
+   solutions get kept and which get discarded.  This differs from random restart searches because it will allow the
+   annealing algorithm to remove the effects of poorly chosen jumps.  Thus, it will likely raise the average peak for
+   the simulated annealing algorithm.
