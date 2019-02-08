@@ -15,4 +15,22 @@ e. The exp_schedule() controls the likelihood of the simulated annealing process
    continues
 
 2.2
-a.
+a. Both algorithms do significantly worse on this problem space than on the absolute value problem space.  The
+   hill-climbing algorithm usually returns a local maximum close to the initial point, but only rarely returns the
+   global maximum of 30 at x=30.  This occurs because the hill-climbing algorithm looks for higher and higher maximums
+   until it cannot find a higher peak, at which point it stops and will not go down.  Therefore, the hill-climbing
+   algorithm can only find a local maximum close to the initial point.   The simulated annealing solution, on the other
+   hand, tends to generate random answers.  On one run, it might turn up the proper answer; on the next, it might turn
+   up some answer with a negative value for x.  This schizophrenic behavior occurs because, while the simulated
+   annealing algorithm usually moves toward the goal, it sometimes jumps to a less-optimal solution in the hopes of
+   finding a better overall answer.  This accounts for the inconsistency and randomness in the results from the
+   simulated annealing algorithm.  Neither algorithm stands out for their efficacy.
+b. The starting value makes a large difference, as it controls how close the hill-climbing algorithm and, to a lesser
+   extent, the simulated annealing algorithm come to returning the true global maximum, for reasons outlined in 2.2.a.
+c. Changing the step size does little to change how the algorithms operate; it only changes how far afield they go in
+   looking for the highest point.  The higher the delta value is, the further away the algorithms look.
+d. Theoretically, the maximum possible value that can be returned is 30, but, unless implemented, there are no limits
+   to how far afield the algorithms can go to find a peak, so the maximum possible value is 0.  The theoretical minimum
+   possible value is the peak at x=2.03, with a value of 1.82.  However, because the simulated annealing algorithm can
+   return values less than the max that it found, it is technically possible for that algorithm to return a value less
+   than this number, although such a number would not go less than 0.
