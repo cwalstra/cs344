@@ -1,0 +1,18 @@
+2.1
+a. Both the Hill-climbing and simulated solutions successfully return the global maximum.
+b. The difference in the time which each algorithm needs is minimal.
+c. The starting value for x makes no difference because there is only one maximum in the function.
+d. Changes in the delta value decrease the quality of the solution for both algorithms.  At very high delta values,
+   (delta = 100), the two algorithms return the initial value.  At numbers close to the default value of 1 (single digit
+   integers), the algorithms return values close to the actual answer of 15; however, because the step size in x is
+   greater than 1, the result ends up getting shifted from the true answer of x=15 by a step or two because the y*delta
+   + initial x may not equal x for a whole number value of y.  In this case, the algorithms step right over 15.  At very
+   low values of delta (delta = 0.001), the hill-climbing algorithm returns the correct answer, but the simulated
+   annealing algorithm returns something close to the initial value, likely because it cannot move enough to counteract
+   a negative move.
+e. The exp_schedule() controls the likelihood of the simulated annealing process taking a step in a negative direction.
+   Because its output decreases as x increases, the likelihood of a random step back decreases as the search process
+   continues
+
+2.2
+a.
