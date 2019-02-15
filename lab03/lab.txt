@@ -37,8 +37,18 @@ of these two parameters generates the best results, solving all three puzzles in
 
 3.2
 a. The depth-first search was buggy, so it was not evaluated.  AC3 could not solve n=4 because it cannot solve a problem
-   for which multiple values are acceptable for a given domain.  Backtracking started failing at n=22, because it ran
+   for which multiple values are acceptable for a given domain.  Backtracking started struggling around n=22, because it ran
    out of time and steps to solve the board.  Min-conflicts solved problems up to n=5000, and could potentially deal
    with even more.
-b. ???
-c. 
+b. The best backtracking algorithm uses both the the minimum remaining value and the forward-checking parameters.
+c. The min-conflicts algorithm uses about 50 steps to do its work.
+
+
+3.3
+a. Traditional search problems start with an empty board, so to speak.  CSPs, on the other hand, start with all the
+   pieces in place and rearrange them to find a solution.  They also often start with some known facts.  Both use
+   domains, but CSPs actively restrict the contents of domains by applying the constraints.  Both use the same actions
+   to move to new transition states, and integrate the constraints into a goal test.  All of this means that they should
+   reach the same solution, although the CSP approach usually reaches it sooner.
+b. Both search types use heuristics that minimize the number of constraint violations.  However, CSPs offer more options
+   for dealing with violated constraints, like backtracking, than traditional search, which usually can only go forward.
