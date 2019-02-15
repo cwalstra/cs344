@@ -1,0 +1,29 @@
+3.1
+a. The depth-first search fails to find an answer to even the easiest sudoku.  This occurs because depth-first search
+   completes a sudoku based on a random starting location, and then explores the solutions close to this guess.  Since
+   a sudoku has only one possible solution but many possible numerical layouts, the depth-first search only has a chance
+   to explore the solutions close to the solution which it first finds.  If the true solution is not among them, the
+   algorithm will not find it.
+
+   The AC3 algorithm finds a solution to the easy puzzle in about 5 hundredths of a second, but fails to find a solution
+   to either of the harder puzzles.  This occurs because the arc consistency algorithm works well for problems that
+   initially constrain each domain to precisely one possible solution, like the easy puzzle, but abjectly fails when
+   the problem cannot constrain each domain to precisely one solution, as with the harder two puzzles.
+
+   The backtracking algorithm algorithm also only finds the solution to the easiest sudoku, although it takes at least
+   a minute to do so.  This occurs because the backtracking algorithm keeps adding numbers to the puzzle until it
+   violates a constraint by repeating a number in a row, column, or box.  At this point, it then backs up so that it can
+   fix the issue that caused it to violate a constraint.  It repeats this process until it finds a solution for which
+   all constraints are satisfied.  However, the original setup has poor heuristics for choosing the best path, so this
+   process takes a large amount of time for any puzzle other than the easiest one.
+
+   The minimum conflicts algorithm can find a solution to the easiest puzzle, but it takes over three minutes to do so.
+   The other puzzles take longer, over four minutes.  The minimum conflicts algorithm starts by randomly assigning a
+   number to each domain and then moving the numbers that conflict into new domains that minimize the amount of conflict.
+   Although this usually finds the solution eventually, it takes a long time to find the solution to a sudoku because of
+   the number of possible ways to arrange the numbers that go in a sudoku.
+
+b.
+i.  Setting the select_unassigned_variable parameter to minimum-remaining-value lengthens the search time with respect
+    to the default value.
+ii. Replacing the default value for inference dramatically drops the search time.
