@@ -25,5 +25,20 @@ a. The depth-first search fails to find an answer to even the easiest sudoku.  T
 
 b.
 i.  Setting the select_unassigned_variable parameter to minimum-remaining-value lengthens the search time with respect
-    to the default value.
-ii. Replacing the default value for inference dramatically drops the search time.
+    to the default value for the easiest puzzle,
+ii. Replacing the default value for inference dramatically drops the search time for the easiest puzzle from over a
+    minute to less than a second, but the algorithm still cannot solve the more difficult puzzles.
+
+The forward checking option should work well for Sudoku because it examines how well a given guess moves the potential
+solution towards the final answer, and checks the ones that seem to work best first.  Minimum remaining values should
+also work well because it looks to minimize scenarios by looking at highly constrained squares first.  The combination
+of these two parameters generates the best results, solving all three puzzles in less than a second.
+
+
+3.2
+a. The depth-first search was buggy, so it was not evaluated.  AC3 could not solve n=4 because it cannot solve a problem
+   for which multiple values are acceptable for a given domain.  Backtracking started failing at n=22, because it ran
+   out of time and steps to solve the board.  Min-conflicts solved problems up to n=5000, and could potentially deal
+   with even more.
+b. ???
+c. 
