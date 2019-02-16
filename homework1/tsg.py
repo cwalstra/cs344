@@ -26,15 +26,30 @@ class TSG(Problem):
 
     # To reach a new state, switch the first two cities for which a swap reduces the total distance
     def actions(self, state):
-        return [state + self.delta, state - self.delta]
+        actions = []
+        for i in range(len(state)-1):
+            actions.append([state[i+1], state[i]])
+        return actions
 
     # There is no goal_test for this problem.
 
-    def result(self, state):
-        return x
+    def result(self, state, action):
+        return state
 
     def value(self, state):
-        for i in range(len(state))
+        tripLength = 0
+        for i in range(len(state)-1):
+            letter1 = state[i]
+            letter2 = state[i+1]
+
+            if letter1 > letter2:
+                key = letter2 + letter1
+            else:
+                key = letter1 + letter2
+
+            tripLength += self.lengths[key]
+
+        return tripLength
         #return self.maximum / 2 - math.fabs(self.maximum / 2 - x)
 
     def string_to_state(self, state_string):
@@ -49,7 +64,7 @@ class TSG(Problem):
 # This creates an initial list of cities and the distances between them
 minimum = 200
 lengths = {"AB":1, "AC":11, "AD":18, "AE":20, "AF":6, "AG":6, "AH":3, "AI":2, "AJ":15,
-           "BC":1, "BD":9, "BE":7, "BF":20, "BG":1, "BH":17, "BI":13, "BJ":5
+           "BC":1, "BD":9, "BE":7, "BF":20, "BG":1, "BH":17, "BI":13, "BJ":5,
            "CD":20, "CE":15, "CF":7, "CG":5, "CH":19, "CI":19, "CJ":1,
            "DE":3, "DF":14, "DG":20, "DH":13, "DI":7, "DJ":2,
            "EF":20, "EG":4, "EH":8, "EI":3, "EJ":5,
