@@ -1,76 +1,42 @@
 '''
-This is an AIMA-Python-based solution for the missionaries and cannibals problem.
+This module implements local search on a simple abs function variant.
+The function is a linear function  with a single, discontinuous max value
+(see the abs function variant in graphs.py).
 
 @author: kvlinden
-@version Dec 18, 2012
-@version Spring, 2018 Ported to Python 3...
+@version 6feb2013
 '''
+from tools.aima.search import Problem, hill_climbing, simulated_annealing, \
+    exp_schedule, genetic_search
+from random import randrange
+import math
+from timeit import default_timer as timer
 
-from tools.aima.search import Problem, breadth_first_tree_search, depth_first_tree_search, depth_first_graph_search
-import string
 
-
-class Missionaries(Problem):
+class TSG(Problem):
     '''
-    state format: [missionaries on side 0, cannibals on side 0, M on side 1, C on side 1, boat location]
-    action format: [missionaries to move, cannibals to move]
+    State: A list of the cities in visitation order
+    Action: Swap two cities
     '''
 
-    def __init__(self):
-        self.initial = self.state_to_string([3, 3, 0, 0, 0])
-        self.goal = [0, 0, 3, 3, 1]
+    def __init__(self, initial, lengths, minimum=200):
+        self.initial = initial
+        self.lengths = lengths
+        self.minimum = minimum
 
-    def actions(self, state_string):
-        state = self.string_to_state(state_string)
-        actions = []
-        for m in range(3):
-            for c in range(3):
-                new_move = [m, c]
-                new_state = self.create_new_state(state, new_move)
-                if new_state != None:
-                    actions.append(new_move)
-        return actions
+    # To reach a new state, switch the first two cities for which a swap reduces the total distance
+    def actions(self, state):
+        return [state + self.delta, state - self.delta]
 
-    def result(self, state_string, move):
-        state = self.string_to_state(state_string)
-        return self.state_to_string(self.create_new_state(state, move))
+    # There is no goal_test for this problem.
 
-    def goal_test(self, state_string):
-        state = self.string_to_state(state_string)
-        for i in range(len(state)):
-            if state[i] != self.goal[i]:
-                return False
-        return True
+    def result(self, state):
+        return x
 
-    # There is likely a more clever way to solve this using index arithmetic.
-    def create_new_state(self, state, move):
-        '''This method creates a new state based on the current state and the given move. If no such move is possible,
-        i.e., because there aren't enough missionaries or cannibals on the boat side to fill the move or if the resulting
-        state is illegal, then return None.'''
+    def value(self, state):
+        for i in range(len(state))
+        #return self.maximum / 2 - math.fabs(self.maximum / 2 - x)
 
-        # The boat can carry from 1-2 people, no more, no less.
-        if (move[0] + move[1] == 0) or (move[0] + move[1] > 2):
-            return None
-
-        # Make a new state for the move based on the location of the boat the availability of missionaries and cannibals on that side.
-        # Note that the boat passenger mix is always legal because one group can't out-number the other.
-        if (state[4] == 0) and (state[i] >= move[i] for i in range(2)):
-            # The boat is on the left.
-            return self.legal_state([state[0] - move[0], state[1] - move[1], state[2] + move[0], state[3] + move[1], 1])
-        elif (state[i + 2] >= move[i] for i in range(2)):
-            # The boat is on the right.
-            return self.legal_state([state[0] + move[0], state[1] + move[1], state[2] - move[0], state[3] - move[1], 0])
-        else:
-            return None
-
-    def legal_state(self, state):
-        '''This method returns the state if the cannibals do not out-number the missionaries, None otherwise.'''
-        if (state[0] >= state[1] or state[0] == 0) and (state[2] >= state[3] or state[2] == 0):
-            return state
-        else:
-            return None
-
-    # Utility functions that convert to and from hashable state representations
     def string_to_state(self, state_string):
         # In Python 3, map() returns a map object, not the list we need.
         # So, convert it to a list.
@@ -80,8 +46,32 @@ class Missionaries(Problem):
         return ','.join(map(str, state))
 
 
-p = Missionaries()
-solution = breadth_first_tree_search(p).solution()
-print(solution)
-print("length: " + str(len(solution)))
+# This creates an initial list of cities and the distances between them
+minimum = 200
+lengths = {"AB":1, "AC":11, "AD":18, "AE":20, "AF":6, "AG":6, "AH":3, "AI":2, "AJ":15,
+           "BC":1, "BD":9, "BE":7, "BF":20, "BG":1, "BH":17, "BI":13, "BJ":5
+           "CD":20, "CE":15, "CF":7, "CG":5, "CH":19, "CI":19, "CJ":1,
+           "DE":3, "DF":14, "DG":20, "DH":13, "DI":7, "DJ":2,
+           "EF":20, "EG":4, "EH":8, "EI":3, "EJ":5,
+           "FG":18, "FH":8, "FI":12, "FJ":13,
+           "GH":2, "GI":1, "GJ":1,
+           "HI":14, "HJ":15,
+           "IJ":18}
+initial = [ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+p = TSG(initial, lengths, minimum)  # Create an Abs variant problem, specifying the delta step value.
+print('Initial                      x: ' + str(p.initial) + '\t\tvalue: ' + str(p.value(initial)))
 
+startH = timer()
+# Solve the problem using hill-climbing.
+hill_solution = hill_climbing(p)
+print('Hill-climbing solution       x: ' + str(hill_solution) + '\tvalue: ' + str(p.value(hill_solution)))
+endH = timer()
+
+startS = timer()
+# Solve the problem using simulated annealing.
+annealing_solution = simulated_annealing(p, exp_schedule(k=20, lam=0.005, limit=1000))
+print('Simulated annealing solution x: ' + str(annealing_solution) + '\tvalue: ' + str(p.value(annealing_solution)))
+endS = timer()
+
+print(f"Hill Time: {endH - startH}")
+print(f"Annealing Time: {endS - startS}")
