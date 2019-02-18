@@ -19,12 +19,10 @@ class TSG(Problem):
     Action: Swap two cities
     '''
 
-    def __init__(self, initial, lengths, minimum=200):
+    def __init__(self, initial, lengths):
         self.initial = initial
         self.lengths = lengths
-        self.minimum = minimum
 
-    # To reach a new state, switch the first two cities for which a swap reduces the total distance
     def actions(self, state):
         actions = []
         for i in range(len(state)-1):
@@ -34,6 +32,17 @@ class TSG(Problem):
     # There is no goal_test for this problem.
 
     def result(self, state, action):
+        # find indices
+        index1 = state.index(action[1])
+        index2 = state.index(action[0])
+
+        # remove old states
+        state.remove(action[1])
+        state.remove(action[0])
+
+        # insert new states
+        state.insert(index1, action[0])
+        state.insert(index2, action[1])
         return state
 
     def value(self, state):
@@ -49,20 +58,10 @@ class TSG(Problem):
 
             tripLength += self.lengths[key]
 
-        return tripLength
-        #return self.maximum / 2 - math.fabs(self.maximum / 2 - x)
-
-    def string_to_state(self, state_string):
-        # In Python 3, map() returns a map object, not the list we need.
-        # So, convert it to a list.
-        return list(map(int, state_string.split(',')))
-
-    def state_to_string(self, state):
-        return ','.join(map(str, state))
+        return -tripLength
 
 
 # This creates an initial list of cities and the distances between them
-minimum = 200
 lengths = {"AB":1, "AC":11, "AD":18, "AE":20, "AF":6, "AG":6, "AH":3, "AI":2, "AJ":15,
            "BC":1, "BD":9, "BE":7, "BF":20, "BG":1, "BH":17, "BI":13, "BJ":5,
            "CD":20, "CE":15, "CF":7, "CG":5, "CH":19, "CI":19, "CJ":1,
@@ -72,8 +71,8 @@ lengths = {"AB":1, "AC":11, "AD":18, "AE":20, "AF":6, "AG":6, "AH":3, "AI":2, "A
            "GH":2, "GI":1, "GJ":1,
            "HI":14, "HJ":15,
            "IJ":18}
-initial = [ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-p = TSG(initial, lengths, minimum)  # Create an Abs variant problem, specifying the delta step value.
+initial = ["A", "B", "C"]#, "D", "E"]#, "F", "G", "H", "I", "J"]
+p = TSG(initial, lengths)  # Create an Abs variant problem, specifying the delta step value.
 print('Initial                      x: ' + str(p.initial) + '\t\tvalue: ' + str(p.value(initial)))
 
 startH = timer()
