@@ -90,3 +90,7 @@ endS = timer()
 
 print(f"Hill Time: {endH - startH}")
 print(f"Annealing Time: {endS - startS}")
+
+'''
+Introspection would not make a good model for AI to use to emulate human thought.  According to Wikipedia, introspection is “the examination of one’s conscious thoughts and feelings.”  Since computers do not possess conscious thought, they cannot use introspection to determine the validity of their thinking processes while the processes are running.  A better model would be close to the scientific method: seeing what processes generate useful results and then keeping those while tossing processes that generate bogus or useless results.  This would allow computers to evaluate a given process and continue to learn.  However, because computers cannot consciously think about a process while it is running, introspection is a poor choice to model human thought.
+'''
