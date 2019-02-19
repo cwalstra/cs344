@@ -32,18 +32,19 @@ class TSG(Problem):
     # There is no goal_test for this problem.
 
     def result(self, state, action):
+        newState = state[:]
         # find indices
-        index1 = state.index(action[1])
-        index2 = state.index(action[0])
+        index1 = newState.index(action[1])
+        index2 = newState.index(action[0])
 
         # remove old states
-        state.remove(action[1])
-        state.remove(action[0])
+        newState.remove(action[1])
+        newState.remove(action[0])
 
         # insert new states
-        state.insert(index1, action[0])
-        state.insert(index2, action[1])
-        return state
+        newState.insert(index1, action[0])
+        newState.insert(index2, action[1])
+        return newState
 
     def value(self, state):
         tripLength = 0
