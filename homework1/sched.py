@@ -11,14 +11,16 @@ def Schedule():
     Classes = 'cs108 cs112 cs212 cs214 cs300 cs344'.split()
     Times = 'mwf800 mwf900 mwf1030 mwf1130'.split()
     Rooms = 'sb354 sb372'.split()
-    variables = Profs + Times + Rooms
+    variables = Classes
     domains = {}
     for var in variables:
-        domains[var] = Classes
-
-    neighbors = parse_neighbors('dschuurman: ; adams: ; vnorman: ; kvlinden: ; '
-                                'mwf800: ; mwf900: ; mwf1030: ; mwf1130: ; sb354: ; sb372: ', variables)
-    for type in [Profs, Times, Rooms]:
+        domains[var] = []
+        for Prof in Profs:
+            for Time in Times:
+                for Room in Rooms:
+                    domains[var].append((Prof, Time, Room))
+    neighbors = parse_neighbors('cs108: ; cs112: ; cs212: ; cs214: ; cs300: ; cs344: ', variables)
+    for type in [Classes]:
         for A in type:
             for B in type:
                 if A != B:
@@ -26,17 +28,34 @@ def Schedule():
                         neighbors[A].append(B)
                     if A not in neighbors[B]:
                         neighbors[B].append(A)
-    print(neighbors)
 
     def schedule_constraints(A, a, B, b, recurse=0):
         same = (a == b)
+        if A == B:
+            return same
+        if A != B:
+            # if same professor
+            if a[0] == b[0]:
+                # if meeting at same time
+                if a[1] == b[1]:
+                    return False
+                else:
+                    return True
+            # if same time
+            if a[1] == b[1]:
+                # if classes have same professor or room
+                if a[0] == b[0] or a[2] == b[2]:
+                    return False
+                else:
+                    return True
+            if a[2] == b[2]:
+                if a[1] == b[1]:
+                    return False
+                else:
+                    return True
+            else:
+                return True
 
-        if recurse == 0:
-            return schedule_constraints(B, b, A, a, 1)
-        if ((A in Profs and B in Profs) or
-                (A in Times and B in Times) or
-                (A in Rooms and B in Rooms)):
-            return not same
         raise Exception('error')
     return CSP(variables, domains, neighbors, schedule_constraints)
 
@@ -44,9 +63,11 @@ def Schedule():
 def print_solution(result):
     """A CSP solution printer copied from csp.py."""
     for Class in 'cs108 cs112 cs212 cs214 cs300 cs344'.split():
-        print('Class', Class)
-        for (var, val) in result.items():
-            if val == Class: print('\t', var)
+        print('Class: ', Class)
+        output = result[Class]
+        print("Professor: ", output[0])
+        print("Timeslot: ", output[1])
+        print("Room: ", output[2])
 
 
 puzzle = Schedule()
