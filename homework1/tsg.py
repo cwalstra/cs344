@@ -32,6 +32,7 @@ class TSG(Problem):
     # There is no goal_test for this problem.
 
     def result(self, state, action):
+        newState = state[:]
         # find indices
         index1 = state.index(action[1])
         index2 = state.index(action[0])
@@ -71,7 +72,7 @@ lengths = {"AB":1, "AC":11, "AD":18, "AE":20, "AF":6, "AG":6, "AH":3, "AI":2, "A
            "GH":2, "GI":1, "GJ":1,
            "HI":14, "HJ":15,
            "IJ":18}
-initial = ["D", "A", "C", "B"]#, "E", "F", "G", "H", "I", "J"]
+initial = ["A", "B", "C"]#, "D", "E"]#, "F", "G", "H", "I", "J"]
 p = TSG(initial, lengths)  # Create an Abs variant problem, specifying the delta step value.
 print('Initial                      x: ' + str(p.initial) + '\t\tvalue: ' + str(p.value(initial)))
 
@@ -87,5 +88,5 @@ annealing_solution = simulated_annealing(p, exp_schedule(k=20, lam=0.005, limit=
 print('Simulated annealing solution x: ' + str(annealing_solution) + '\tvalue: ' + str(p.value(annealing_solution)))
 endS = timer()
 
-print("Hill Time: %(time)f", {'time':(endH - startH)})
-print("Annealing Time: %(time)f", {'time':(endS - startS)})
+print(f"Hill Time: {endH - startH}")
+print(f"Annealing Time: {endS - startS}")
