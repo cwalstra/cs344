@@ -39,6 +39,19 @@ def Schedule():
                 # if meeting at same time
                 if a[1] == b[1]:
                     return False
+                # No professor can teach consecutive classes
+                elif a[1] == "mwf800" and b[1] == "mwf900":
+                    return False
+                elif b[1] == "mwf800" and a[1] == "mwf900":
+                    return False
+                elif a[1] == "mwf1030" and b[1] == "mwf900":
+                    return False
+                elif b[1] == "mwf1030" and a[1] == "mwf900":
+                    return False
+                elif a[1] == "mwf1030" and b[1] == "mwf1130":
+                    return False
+                elif b[1] == "mwf1030" and a[1] == "mwf1130":
+                    return False
                 else:
                     return True
             # if same time
@@ -68,6 +81,7 @@ def print_solution(result):
         print("Professor: ", output[0])
         print("Timeslot: ", output[1])
         print("Room: ", output[2])
+        print("\n")
 
 
 puzzle = Schedule()
