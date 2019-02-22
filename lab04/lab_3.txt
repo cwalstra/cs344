@@ -1,0 +1,22 @@
+a. Drug Testing
+
+i.   P(User) = 0.089 (stated)
+ii.  P(Test|User) = 0.99 (stated)
+iii. P(~Test|User) = 1 - P(Test|User) = 1 - .99 = 0.01
+iv.  P(Test|~User) = 1 - P(~Test|~User) = 1 - .98 = 0.02
+v.   P(User|Test) = P(Test|User) * P(User) / P(Test) = .99*.089/(.99*.089 + .02*.911) = .829
+
+
+b. Breast Cancer
+
+Find P(cancer|positive test)
+
+P(C|PT) = P(PT|C) * P(C)/P(PT)
+        = (.80*.01)/(.80*.01 + .096*.99)
+        = 0.0776
+
+Probability of a woman having cancer, if she gets a positive test:
+0.0776
+
+Probability of a woman being cancer free if she gets a positive test:
+0.9224

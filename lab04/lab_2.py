@@ -19,28 +19,23 @@ It is based on the code from AIMA probability.py.
 from probability import JointProbDist, enumerate_joint_ask
 
 # The Joint Probability Distribution Fig. 13.3 (from AIMA Python)
-P = JointProbDist(['Toothache', 'Cavity', 'Catch'])
+P = JointProbDist(['Toothache', 'Cavity', 'Catch', 'Rain'])
 T, F = True, False
-P[T, T, T] = 0.108; P[T, T, F] = 0.012
-P[F, T, T] = 0.072; P[F, T, F] = 0.008
-P[T, F, T] = 0.016; P[T, F, F] = 0.064
-P[F, F, T] = 0.144; P[F, F, F] = 0.576
+P[T, T, T, T] = 0.054; P[T, T, F, T] = 0.006
+P[F, T, T, T] = 0.036; P[F, T, F, T] = 0.004
+P[T, F, T, T] = 0.008; P[T, F, F, T] = 0.032
+P[F, F, T, T] = 0.072; P[F, F, F, T] = 0.288
+P[T, T, T, F] = 0.054; P[T, T, F, F] = 0.006
+P[F, T, T, F] = 0.036; P[F, T, F, F] = 0.004
+P[T, F, T, F] = 0.008; P[T, F, F, F] = 0.032
+P[F, F, T, F] = 0.072; P[F, F, F, F] = 0.288
 
 # Compute P(Cavity|Toothache=T)  (see the text, page 493).
-PC = enumerate_joint_ask('Cavity', {'Catch': T}, P)
+PC = enumerate_joint_ask('Toothache', {'Rain': T}, P)
 print(PC.show_approx())
 
 
 
-P = JointProbDist(['Coin2', 'Coin1'])
-T, F = True, False
-P[T, T] = .25
-P[T, F] = .25
-P[F, T] = .25
-P[F, F] = .25
-
-coinProb = enumerate_joint_ask('Coin2', {'Coin1': T}, P)
-print(coinProb.show_approx())
 
 '''
 Answers to 4.2 part a and b
@@ -51,5 +46,13 @@ iii. It is possible to use more than just true and false for a probability distr
      if choosing a random location on the American flag, the possible states are red, white, and blue,
      each with a certain probability of being chosen randomly.  As long as every possible state is 
      covered, and the probabilities add to one, states beyond true and false are possible.
-iv.  
+iv.  The probabilities that I chose indicate that the value of Rain is independent of the original values
+     because the conditional probabilities, e.g. P(Cavity|Catch), are the same for both rain and not rain.
+     
+b. 
+P(Toothache | rain) = P(Toothache && rain)/P(rain) = 
+    (.054 + .008 + .032 + .006)/(.054 + .008 + .032 + .006 + .036 + .072 + .288 + .004) =
+    = 0.2
+    
+AIMA result = .2
 '''
