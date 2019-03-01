@@ -44,4 +44,8 @@ P(Raise | Sunny && Happy)
     = < P(sunny && happy | raise) * P(raise)/(P(sunny && happy | raise) * P(raise) +P(sunny && happy | ~raise) * P(~raise)),
         P(sunny && happy | ~raise) * P(~raise)/(P(sunny && happy | raise) * P(raise) +P(sunny && happy | ~raise) * P(~raise))>
     = < T=0.0142, F=0.986 >
+    
+Part B:
+These results do make sense because because specifying that one is happy but that it is not sunny decreases the
+possible causes of happiness, and therefore makes it more likely that one is in the situation where one had a raise.
 '''
