@@ -24,17 +24,24 @@ print(enumeration_ask('Cancer', dict(Test1=T, Test2=F), testing).show_approx())
 
 
 '''
-P(cancer | test1 && test2) = P(test1 && test2 | cancer) * P(cancer) / P(test1 && test2)
-    = (.9 * .9) * .01 / ((.9*.01 + .2*.99) * (.9*.01 + .2*.99))
-P(~cancer | test1 && test2) = P(test1 && test2 | ~cancer) * P(~cancer) / P(test1 && test2)
-    = (.2 * .2) * .99 / ((.9*.01 + .2*.99) * (.9*.01 + .2*.99))
+P(cancer | test1 && test2)
+    = P(test1 && test2 | cancer) * P(cancer) / (P(test1 && test2 | cancer) * P(cancer) + P(test1 && test2 | ~cancer) * P(~cancer))
+    = (.9 * .9) * .01 / (0.9*0.9*0.01 + 0.2*0.2*0.99)
+    = 0.17
+P(~cancer | test1 && test2) 
+    = P(test1 && test2 | ~cancer) * P(~cancer) / (P(test1 && test2 | cancer) * P(cancer) + P(test1 && test2 | ~cancer) * P(~cancer))
+    = (.2 * .2) * .99 / (0.9*0.9*0.01 + 0.2*0.2*0.99)
+    = 0.83
 
 P(C | T1 ^ T2) = <P(cancer | test1 && test2), P(~cancer | test1 && test2)> = <0.17, 0.83>
 
-P(cancer | test1 && ~test2) = P(test1 && ~test2 | cancer) * P(cancer) / P(test1 && ~test2)
-    = (.9 * .1) * .01 / ((.9*.01 + .2*.99) * (.1*.01 + .8*.99))
+P(cancer | test1 && ~test2) 
+    = P(test1 && ~test2 | cancer) * P(cancer) / (P(test1 && ~test2 | cancer) * P(cancer) + P(test1 && ~test2 | ~cancer) * P(~cancer))
+    = (.9 * .1) * .01 / (0.9*0.1*0.01 + 0.2*0.8*0.99)
+    = 0.00565
 P(~cancer | test1 && test2) = P(test1 && test2 | ~cancer) * P(~cancer) / P(test1 && ~test2)
-    = (.2 * .8) * .99 / ((.9*.01 + .2*.99) * (.1*.01 + .8*.99))
+    = (.2 * .8) * .99 / (0.9*0.1*0.01 + 0.2*0.8*0.99)
+    = 0.994
     
 P(C | T1 ^ ~T2) = <P(cancer | test1 && ~test2), P(~cancer | test1 && ~test2)> = <0.00565, 0.994>
 

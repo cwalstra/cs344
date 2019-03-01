@@ -28,16 +28,20 @@ print("P(R | ~S && H)")
 print(enumeration_ask('Raise', dict(Happy=T, Sunny=F), happiness).show_approx())
 '''
 P(Raise | Sunny) = P(Raise) because the two are independent events by the properties of a Bayesian network
+   = < T=0.01, F=0.99 >
 
 P(Raise | Sunny && Happy) = P(sunny && happy | raise) * P(raise)
 P(~Raise | Sunny && Happy) = P(sunny && happy | ~raise) * P(~raise)
 
-P(sunny && happy | raise) = P(sun) * P(happy| sunny && raise) 
+P(sunny && happy | raise) = P(sunny) * P(happy | sunny && raise) = .7 * 1.0
                           = .7
-P(raise) = .01
-P(sunny && happy) = P(sunny)*P(raise)*P(happy|sunny&&raise) + P(sunny)*P(~raise)*P(happy|sunny&&~raise)
-                  = .4921
+P(raise) = .01 (stated)
 
 
+P(sunny && happy | ~raise) = P(sunny) + P(happy | sunny && ~raise) = 0.7 * 0.7 = 0.49
 
+P(Raise | Sunny && Happy) 
+    = < P(sunny && happy | raise) * P(raise)/(P(sunny && happy | raise) * P(raise) +P(sunny && happy | ~raise) * P(~raise)),
+        P(sunny && happy | ~raise) * P(~raise)/(P(sunny && happy | raise) * P(raise) +P(sunny && happy | ~raise) * P(~raise))>
+    = < T=0.0142, F=0.986 >
 '''
