@@ -1,0 +1,39 @@
+CS 344 Lab 6 Part 1
+Name: Chris Walstra
+Partners: Sean and Kelsey Brouwer
+
+1. We would like the machine learning model to classify books by genre to recommend them to people.
+
+2. Ideally, the machine learning model should sort determine the genre of any book.
+
+3. A successful program will be able to recommend a book in the correct genre at least 95% of the time.
+   The key result for the success metric will be whether it recommends a book in the correct genre.
+   It will be a failure if it consistently (>5%) recommends books in the wrong genre or fails to assign one.
+
+4. The model will output the name of the book and its genre as strings.
+
+5. The output must be obtained within 5 seconds of the user asking for it, and it will be used to recommend other books.
+
+6. If we did not use machine learning, we would use a rule-based approach, e.g. all Tom Clancy books are thrillers,
+   a subject of magic would correspond to fantasy, a subject of World War II fighter planes would result in a genre
+   of non-fiction, etc.
+
+7a. Our problem is best framed as a multi-class single-label classification which predicts a single genre for each book.
+
+7b. Is the book fiction or non-fiction?
+
+8. Data
+In: Author
+In: Subject
+In: Text
+In: Title
+In: Summary
+Out: Genre
+
+9. Input Source
+We can either make our own from our libraries, or use Amazon Kindle Books/Google Books.
+
+10. Most Relevant Inputs
+Author
+Title
+Summary
