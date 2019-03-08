@@ -6,7 +6,6 @@ Written by: Chris Walstra, based on code supplied by Keith Vander Linden
 
 import numpy as np
 from keras.datasets import boston_housing
-from keras.utils import to_categorical
 
 
 def print_structures():
@@ -26,13 +25,15 @@ def print_structures():
 
 (train_images, train_labels), (test_images, test_labels) = boston_housing.load_data()
 
-train_images = train_images.reshape((60000, 28*28))
-train_images = train_images.astype('float32') / 255
+print("Part I")
+print(f'Number of training images: {len(train_images)}')
+print(f'Number of testing images: {len(test_labels)}')
 
-test_images = test_images.reshape((10000, 28*28))
-test_images = test_images.astype('float32') / 255
+print("Part II")
+print(f'Training Example rank: {train_images.ndim}')
+print(f'Training Example shape: {train_images.shape}')
+print(f'Training Example data type: {train_images.dtype}')
 
-train_labels = to_categorical(train_labels)
-test_labels = to_categorical(test_labels)
-
-print_structures()
+print(f'Testing Example rank: {test_labels.ndim}')
+print(f'Testing Example shape: {test_labels.shape}')
+print(f'Testing Example data type: {test_labels.dtype}')
