@@ -1,0 +1,25 @@
+Information gain(hungry) = Initial Entropy - Remainder(hungry)
+
+Entropy = -sigma(p * log2(p)) = -(True(p = 6/12) + False(p = 6/12)) = -(6/12 * log2(6/12) + 6/12 * log2(6/12)) = 1
+Remainder(hungry) = sum of p(hungry) * entropy(hungry) and p(not hungry)*entropy(not hungry)
+                  =  7/12 * entropy(hungry) + 5/12 * entropy(not hungry)
+
+Entropy(hungry) = -(p(stay | hungry)*log2(p(stay | hungry)) + p(~stay | hungry)*log2(p(~stay | hungry))
+                = -(5/7 * log2(5/7) + 2/7*log2(2/7))
+                = 0.863
+
+Entropy(not hungry) = -(p(stay | not hungry)*log2(p(stay | hungry)) + p(~stay | not hungry)*log2(p(~stay | not hungry))
+                    = -(1/5 * log2(1/5) + 4/5 * log2(4/5))
+                    = 0.721
+
+Remainder(hungry) = 7/12 * 0.863 + 5/12 * 0.721
+                  = 0.804
+
+
+Information gain = entropy - remainder = 1 - 0.804 = 0.196
+
+
+The hungry question has a greater information gain than the question of restaurant type, which has an information gain
+of zero, but it has a smaller information gain than the patrons question, which has an information gain of 0.54.  This
+means that the patrons question makes a better starting question for a decision tree than the hungry question (or the
+type question, for that matter).
