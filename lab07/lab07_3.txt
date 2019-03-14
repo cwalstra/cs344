@@ -1,0 +1,60 @@
+7.3.a
+
+# Exercise 1 Code - assumes imports included in the notebook
+california_housing_dataframe["rooms_per_person"] = california_housing_dataframe["total_rooms"] / california_housing_dataframe["population"]
+
+calibration_data = train_model(
+    learning_rate=0.05,
+    steps=500,
+    batch_size=5,
+    input_feature="rooms_per_person"
+)
+RMSE: 132.60
+
+
+# Exercise 2 Code - assumes imports included in the notebook
+california_housing_dataframe["rooms_per_person"] = california_housing_dataframe["total_rooms"] / california_housing_dataframe["population"]
+
+calibration_data = train_model(
+    learning_rate=0.05,
+    steps=500,
+    batch_size=5,
+    input_feature="rooms_per_person"
+)
+
+plt.figure(figsize=(6, 4))
+plt.subplot(1, 2, 1)
+plt.scatter(calibration_data["predictions"], calibration_data["targets"])
+
+plt.subplot(1, 2, 3) = california_housing_dataframe["rooms_per_person"]
+
+
+# Exercise 3 Code - assumes imports included in the notebook
+california_housing_dataframe["rooms_per_person"] = california_housing_dataframe["total_rooms"] / california_housing_dataframe["population"]
+california_housing_dataframe["rooms_per_person"]  = california_housing_dataframe["rooms_per_person"].apply(lambda x, min(x, 5)
+
+calibration_data = train_model(
+    learning_rate=0.05,
+    steps=500,
+    batch_size=5,
+    input_feature="rooms_per_person"
+)
+
+plt.figure(figsize=(6, 4))
+plt.subplot(1, 2, 1)
+plt.scatter(calibration_data["predictions"], calibration_data["targets"])
+
+
+7.3.b
+The purpose of synthetic features to combine features that are already present and
+explore the relationship between these variables then relates to the outcome we are
+studying.  For example, Exercise 1 explores how block density, a synthetic feature
+derived by dividing the number of rooms in a given space by the number of people in
+a given space.  This allows for the examination of block density as a possible
+explaining factor for housing price.
+
+
+7.3.c
+Outliers are data points that show a large difference between the predicted and actual
+values.  If possible, we try to filter them out because they skew the data and lead
+to worse models.

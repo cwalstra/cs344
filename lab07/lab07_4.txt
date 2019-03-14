@@ -1,0 +1,60 @@
+7.4.a
+
+Task 1:
+There are some issues with the rooms_per_person set, because there are some values
+that are very large in relation to the mean.  Beyond that, there are some oddities in
+the median_income category in terms of how it is measured and the median house value
+runs from 15 to 500.
+
+
+Task 2:
+Although there is a bit of variation between the testing and validation data set, the
+distribution between the testing and validation sets were roughly the same.
+
+
+Task 3:
+The data needs to be randomized because, at this point, it is separated by geographic
+region.  This means that, if geography plays a major role in determining the housing
+price, the model will be unable to recognize that fact because it tests on one region
+and then validates the model on a different region.  To fix it, uncomment the line that
+randomizes the order of the housing data in one of the upper code blocks.
+
+
+Task 4:
+Code Section 1:
+# 1. Create input functions.
+training_input_fn = lambda: my_input_fn(training_examples, training_targets, batch_size, True, None)
+predict_training_input_fn = lambda: my_input_fn(training_examples, training_targets, num_epochs=1, shuffle=False)
+predict_validation_input_fn = lambda: my_input_fn(validation_examples, validation_targets, num_epochs=1, shuffle=False)
+
+Code Section 2:
+# 2. Take a break and compute predictions.
+training_predictions = linear_regressor.predict(input_fn=predict_training_input_fn)
+training_predictions = np.array([item['predictions'][0] for item in training_predictions])
+validation_predictions = linear_regressor.predict(input_fn=predict_validation_input_fn)
+validation_predictions = np.array([item['predictions'][0] for item in validation_predictions])
+
+With the following hyperparameters,
+learning rate: 0.001
+steps: 300
+batch_size: 10
+
+the RSME was 161.90
+
+
+Task 5:
+california_housing_test_data = pd.read_csv("https://download.mlcc.google.com/mledu-datasets/california_housing_test.csv", sep=",")
+
+test_examples = preprocess_features(california_housing_test_data)
+test_targets = preprocess_features(california_housing_test_data)
+
+predict_test_input_fn = lambda: my_input_fn(test_examples, test_targets['median_house_value'], num_epochs=1, shuffle=False)
+
+test_predictions = linear_regressor.predict(input_fn=predict_test_input_fn)
+test_predictions = np.array([item['predictions'][0] for item in test_predictions])
+
+root_mean_squared_error = math.sqrt(metrics.mean_squared_error(test_predictions, test_targets))
+
+print("Final RMSE for test: %0.2f" % root_mean_squared_error)
+
+This generated an RSME of 158.80, which is similar to the RSME of the validation set of 161.90.

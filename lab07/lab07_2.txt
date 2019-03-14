@@ -1,0 +1,31 @@
+7.2.a
+Categorical data refers to textual data.  For a car, possible relevant examples of categorical
+data include color, type of car, manufacturer, and model.
+
+Numerical data refers to data summarized in number form.  For a car, examples of numerical data
+include horsepower, top speed, and 0-60 time.
+
+7.2.b
+# Exercise 1
+Hyperparameters
+learning_rate: 0.0001
+steps: 100
+batch_size: 1
+
+RMSE: 166.39
+
+
+# Exercise 2
+I was unable to do better with input_feature set to population instead of total_rooms.
+The best I was able to do was 177.59.
+Hyperparameters
+learning_rate: 0.0001
+steps: 300
+batch_size: 10
+
+RMSE: 177
+
+
+7.2.c
+The hyperparameters learned in these exercises are the x and y extents and the weight
+and bias.  There is no standard tuning algorithm for tuning these parameters.
