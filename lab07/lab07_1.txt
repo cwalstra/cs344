@@ -1,0 +1,41 @@
+7.1.a
+
+# Exercise 1
+import pandas as pd
+import numpy as np
+
+city_names = pd.Series(["San Francisco", 'San Jose', 'Sacramento'])
+population = pd.Series([852469, 1015785, 485199])
+cities = pd.DataFrame({'City name': city_names, 'Population': population})
+
+cities['Area square miles'] = pd.Series([46.87, 176.53, 97.92])
+largeCities = cities['Area square miles'].apply(lambda val: val > 50.0)
+saints = cities['City name'].apply(lambda val: "San" in val)
+largeSaints = largeCities & saints
+cities['Large Saints'] = largeSaints
+print(cities)
+
+# Exercise 2
+import pandas as pd
+import numpy as np
+
+city_names = pd.Series(["San Francisco", 'San Jose', 'Sacramento'])
+population = pd.Series([852469, 1015785, 485199])
+cities = pd.DataFrame({'City name': city_names, 'Population': population})
+
+cities['Area square miles'] = pd.Series([46.87, 176.53, 97.92])
+largeCities = cities['Area square miles'].apply(lambda val: val > 50.0)
+saints = cities['City name'].apply(lambda val: "San" in val)
+largeSaints = largeCities & saints
+cities['Large Saints'] = largeSaints
+print(cities)
+
+cities.reindex([2, 0, 1, 3, 4])
+
+7.1.b
+One might use pandas instead of numpy because pandas has more versatile and
+powerful indexing than numpy.
+
+7.1.c
+It may be useful to reorder the DataFrame if one was playing cards or looking for
+a random item from the list.
