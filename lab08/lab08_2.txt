@@ -5,4 +5,23 @@ tries different learning rates each period, trying to find the best value.  The 
 regressor, which is returned, so it can be accessed by other runs.
 
 B. Bucketing/binning enables comparisons between different levels of feature values to determine how changing the feature
-impacts the output.
+impacts the output.  For instance, binning the latitude helps the model find the rise in housing price around Los
+Angeles and San Francisco.  Likewise, binning the model can examine how the population of an area affects the housing
+price in an area specifically.
+
+C.
+Task 1:
+  bucketized_latitude = tf.feature_column.bucketized_column(latitude, boundaries=get_quantile_based_boundaries(california_housing_dataframe["latitude"], 4))
+  bucketized_housing_median_age = tf.feature_column.bucketized_column(housing_median_age, boundaries=get_quantile_based_boundaries(california_housing_dataframe["housing_median_age"], 4))
+  bucketized_median_income = tf.feature_column.bucketized_column(median_income, boundaries=get_quantile_based_boundaries(california_housing_dataframe["median_income"], 4))
+  bucketized_rooms_per_person = tf.feature_column.bucketized_column(rooms_per_person, boundaries=get_quantile_based_boundaries(california_housing_dataframe["rooms_per_person"], 4))
+
+I found that their bucketing made sense.  I wound up using fewer buckets than Google did, meaning that my model would
+have less granularity but would be smaller.
+
+
+Task 2:
+  long_x_lat = tf.feature_column.crossed_column(set([bucketized_longitude, bucketized_latitude]), hash_bucket_size=1000)
+
+One potential feature cross would be a cross of population and households.  This would look at how the number of people
+in a household affects the value of houses in that area.

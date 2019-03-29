@@ -1,0 +1,11 @@
+Lab 8.3
+
+A.
+Seaborn works with MatPlotLib by simplifying some difficult tasks in MatPlotLib and also giving MatPlotLib more plotting
+options.  Both are graphing modules, but Seaborn builds on top of what MatPlotLib can do.
+
+B.
+The dataset includes 397 values.  This seems a bit small for the millions of cars that are on the road, but would make
+more sense if each correlated to a specific model, e.g Toyota Camry.
+
+C.
