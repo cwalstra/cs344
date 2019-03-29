@@ -8,3 +8,12 @@ rooms per person and housing median age shows a correlation coefficient of -0.1,
 person and the housing median age will not likely have a linear relationship.
 
 B.
+Exercise 1:
+For exercise 1, I tried using both median income and median income with rooms per person.  Median income alone produced
+a RMSE of 227, while median income with rooms per person generated an RMSE of 226.  Neither beat Google's example data,
+which used the features latitude and median income and produced an RMSE of 113.
+
+Exercise 2:
+The synthetic feature that I used was is_LA_or_SF, which returned 1.0 if the latitude was between 33 and 34.5 or equal to
+37 or 38 and 0.0 otherwise.  This produced an RMSE, when used with median income, of 138.85, while Google's example,
+which used buckets for each degree of latitude, produced an RSME of 140.20.
