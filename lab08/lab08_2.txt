@@ -1,0 +1,8 @@
+Part 2
+
+A. The FTRL decreases the learning rate by a specified function every period controlled by the learning rate power.  It
+tries different learning rates each period, trying to find the best value.  The FTRL rate is folded into the linear
+regressor, which is returned, so it can be accessed by other runs.
+
+B. Bucketing/binning enables comparisons between different levels of feature values to determine how changing the feature
+impacts the output.
