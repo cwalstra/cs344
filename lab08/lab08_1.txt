@@ -1,0 +1,10 @@
+Lab 8.1
+
+A. The Pearson correlation coefficient measures how closely related two sets of data are, assuming that the relationships
+between the datasets are linear.  For example, the relationship between population and total number of bedrooms has a
+correlation coefficient of 0.9.  This makes sense because, in general, more people are going to need more bedrooms,
+although the correlation is not perfect because people can share rooms.  On the other hand, the relationship between
+rooms per person and housing median age shows a correlation coefficient of -0.1, which makes sense because the rooms per
+person and the housing median age will not likely have a linear relationship.
+
+B.
