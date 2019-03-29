@@ -9,3 +9,7 @@ The dataset includes 397 values.  This seems a bit small for the millions of car
 more sense if each correlated to a specific model, e.g Toyota Camry.
 
 C.
+Prescribed normalization sets the range of each data feature to a specified range based on the mean and standard
+deviation.  This simplifies training the model because all of the features live on the same range.  This transformation,
+with the same mean and standard deviation, also needs to be applied to the test and validation datasets, and any dataset
+used with the model in the future.
