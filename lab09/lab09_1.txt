@@ -10,17 +10,9 @@ c. The LogLoss returns a higher RSME than the linear regression model, at 0.53 v
 LogLoss model uses more steps and a higher learning rate.
 
 d.
-
-Current runs:
 l = .000005
 steps = 500
 batch = 20
 RMSE = 0.53
 AUC = 0.72
-Accuracy = 0.75
-
-l = .00005
-steps = 500
-batch = 20
-AUC = 0.66
 Accuracy = 0.75

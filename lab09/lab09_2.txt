@@ -1,0 +1,10 @@
+a. Regularizing writh respect to sparsity "encourages weights to be exactly zero".  This means that features are
+not getting used, which avoids overfitting and makes the model more efficient.
+
+b. L1 Regularization increases sparsity by driving weights to exactly zero.  It does this by changing the weights by
+a constant every time, unlike L2 regularization, in which the weights change by a factor of 2*weight.  Because the
+absolute value function has a discontinuity at 0, a output less than zero would be set to 0.  L2, on the other hand,
+cannot reach zero, since it only goes down by 2*weight every time.  The rate of change in L1 and L2 is found by taking
+the derivative of the weight penalty function for each (L1 penalizes abs(weight), L2 penalizes weight^2)
+
+c. After trying 0.05, 0.1, and 0.2, the best I got was a model size of 765 and a LogLoss of 0.25 with 0.1.

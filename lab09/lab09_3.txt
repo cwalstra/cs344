@@ -1,0 +1,23 @@
+a. Exercise 1
+i.   The cats/dogs dataset contains 3,000 images, 1000 for training and 500 for testing.  They are taken from a dataset
+     containing 25,000 images.
+ii.  The neural network used in this problem uses three layers of convolution, like the network used in class, but it
+     uses one more layer of maxpooling (3 vs 2), takes a 150x150x3 input as opposed to a 28x28x1 input, and fewer nodes
+     in the convolution layers (16, 32, and 64 versus 32, 64 and 64).
+iii. The images are consistently smaller and less detailed, keeping only the major features, and distinguishing the
+     images.
+
+b. Exercise 2
+i. Data augmentation is the practice of applying random transformations to images so that the model will not learn from
+the exact same image twice.  "This prevents overfitting and helps the model generalize better."
+
+ii.
+For all runs, 30 epochs and 50 validation steps were used.  The only hyperparameter changed was steps_per_epoch (s/e).
+
+Accuracy for each run
+s/e = 100: 0.743
+s/e = 120: 0.8010
+s/e = 150: 0.7780
+
+Increasing the steps per epoch too much likely caused some overfitting, which explains the accuracy decline between the
+s/e of 120 and 150.
