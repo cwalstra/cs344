@@ -1,0 +1,26 @@
+a. The linear regression approach returned an RMSE of 0.44.
+
+b. Both L2 loss and LogLoss evaluate the quality of a model, but LogLoss penalizes cases when the model puts a high
+probability on a given outcome, but the actual outcome is the opposite much more highly than L2 regression.
+
+Most of the outcomes from the validation predictions of RSME for the logistic regression came in below the linear
+regression.
+
+c. The LogLoss returns a higher RSME than the linear regression model, at 0.53 versus 0.44.  This occurs because the
+LogLoss model uses more steps and a higher learning rate.
+
+d.
+
+Current runs:
+l = .000005
+steps = 500
+batch = 20
+RMSE = 0.53
+AUC = 0.72
+Accuracy = 0.75
+
+l = .00005
+steps = 500
+batch = 20
+AUC = 0.66
+Accuracy = 0.75
