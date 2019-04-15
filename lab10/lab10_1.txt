@@ -1,0 +1,13 @@
+Lab 10 Part 1:
+a. I would rather use Keras than TensorFlow because Keras uses a much simpler user interface than TensorFlow does.
+
+b.
+The hyperparameters that I used were
+learning rate: 0.005
+steps=1000
+batch_size=100
+hidden_units=[10, 10]
+
+I got an RMSE of 109.34 on the training data and an RMSE of 110.56 on the validation data.
+
+For the final task, I got an RMSE of 107.99.
