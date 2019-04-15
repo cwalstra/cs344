@@ -1,0 +1,37 @@
+a. Adagrad "modifies the learning rate adaptively for each coefficient in a model".  This lowers the effective learning
+   rate.
+
+b.
+Task 1:
+learning_rate = 0.0007
+steps = 5000
+batch_size = 70
+hidden_units = [10, 10]
+
+RMSE:
+training data: 92.12
+validation data: 90.31
+
+
+Task 2:
+AdaGrad
+learning_rate = 0.5
+steps = 500
+batch_size = 100
+hidden_units = [10, 10]
+
+RMSE:
+training data: 67.45
+validation data: 65.05
+
+Adam
+learning_rate = 0.009
+steps = 500
+batch_size = 100
+hidden_units = [10, 10]
+
+RMSE:
+training data: 70.47
+validation data: 68.54
+
+Task 3:
