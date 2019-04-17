@@ -35,3 +35,19 @@ training data: 70.47
 validation data: 68.54
 
 Task 3:
+Using Google's data transformations
+learning_rate = 0.001
+steps = 1000
+batch_size = 150
+hidden_units = [10, 10]
+
+RMSE:
+training data: 77.00
+validation data: 77.68
+
+
+Task 4:
+Not given
+
+Optional Challenge
+Not completed

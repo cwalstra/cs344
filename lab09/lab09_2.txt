@@ -1,4 +1,4 @@
-a. Regularizing writh respect to sparsity "encourages weights to be exactly zero".  This means that features are
+a. Regularizing with respect to sparsity "encourages weights to be exactly zero".  This means that features are
 not getting used, which avoids overfitting and makes the model more efficient.
 
 b. L1 Regularization increases sparsity by driving weights to exactly zero.  It does this by changing the weights by
