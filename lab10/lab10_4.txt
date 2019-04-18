@@ -1,0 +1,25 @@
+# Lab 10 Part 4
+
+a.
+A linear model can be preferable to a deep neural network model, since they require less data and can perform as well or
+better.
+
+b.
+The neural network and the linear regression model perform almost evenly.  The neural network has less loss, higher
+recall, and higher precision.  The linear regression model has better accuracy.  On the whole, the neural network
+performs slightly better, but either could be considered to be better, depending on what one prioritizes.
+
+c.
+Using embeddings has a small positive effects when doing sentiment analysis.  Adding the embeddings improves the
+accuracy by 2.1 percent and the precision by 1.2 percent but decreases the recall by 2.2 percent.
+
+d.
+Film and movie have very similar embeddings, which makes sense because the two words are essentially synonymous.
+
+e.
+learning_rate = 0.2
+hidden_units = [10,10]
+
+acc = 0.8447
+prec = 0.8195
+rec = 0.884
