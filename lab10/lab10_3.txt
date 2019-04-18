@@ -1,0 +1,16 @@
+# Lab 10 Part 3
+
+a.
+The confusion matrix showed that the model did very well.  The numbers most frequently misidentified were 2 and 5,
+and the most frequently swapped pairs were 4 and 9 as well as 3 and 5.
+
+b.
+The NN used in the lab has a pair of 100 node convolutional layers, while the Keras example in class had a 32 node
+layer and a 64 node layer.
+
+Changing the batch size to 100 increased the validation set accuracy to 0.96 but does not improve the test set accuracy.
+Increasing the learning rate to 0.1 has no effect on the accuracy of either the validation or the test set.
+
+c.
+Decreasing the number of steps from 1000 to 10 makes the images much less distinct and increases the frequency of images
+which appear like checkerboards.
