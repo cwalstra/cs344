@@ -1,0 +1,51 @@
+Given:
+A on B
+B on C
+T supports C
+If X supports Y, Y on X.
+If X on Y, X above Y
+For X, Y, and Z, if X above Y and Y above Z, X above Z
+
+Prove: A above T with Resolution
+
+1. Assume the negation:
+not A above T
+
+2. Render the knowledge base in Conjunctive Normal Form
+
+on(A, B)
+on(B, C)
+supports(T, C)
+not supports(X, Y) or on(Y, X)
+not on(X, Y) or above(X, Y)
+not above(X, Y) or not above(Y, Z) or above(X, Z)
+
+
+3. Unify
+supports(T, C) and ( not supports(X, Y) or on(Y, X) ) --> instantiate X as T and Y as C -->
+    supports(T, C) and ( not supports(T, C) or on(C, T) ) -->
+    Since supports(T, C) is given, not supports(T, C) cannot be true, so on(C, T) must be true
+    --> on(C, T)
+
+on(A, B) and ( not on(X, Y) or above(X, Y) ) --> instantiate X as A and Y as B -->
+    on(A, B) and ( not on(X, Y) or above(X, Y) )  -->
+    Since on(A, B) given, not on(A, B) cannot be true, so, to make this statement true, the statement above(A, B) must be true.
+    --> above(A, B)
+
+    The same proof can be used with different variables to show that
+    above(B, C)
+    above(C, T)
+
+above(B, C) and above(C, T) and ( not above(X, Y) or not above (Y, Z) or above (X, Z) ) --> instantiate X as B, Y as C,
+    and Z as T --> above(B, C) and above(C, T) and ( not above(B, C) or not above (C, T) or above (B, T) ) -->
+    Because above(B, C) and above (C, T) are given, not above(B, C) and not above(C, T) cannot be true.  To make the
+    above statement true therefore, above(B, T) must be true.
+    --> above(B, T)
+
+above(A, B) and above(B, T) and ( not above(X, Y) or not above(Y, Z) or above (X, Z) ) --> instantiate X as A, Y as B,
+    and Z as T --> above(A, B) and above(B, T) and ( not above(A, B) or not above (B, T) or above (A, T) ) -->
+    Because above(A, B) and above (B, T) have been shown, not above(A, B) and not above(B, T) cannot be true.  To make the
+    above statement true therefore, above(A, T) must be true.
+    -->
+
+not above(A, T) and above(A, T) cannot be true.  This is a contradiction, and thus this proof is concluded.
