@@ -34,7 +34,9 @@ from pprint import pprint
 import scipy.io as sio
 from keras.preprocessing.image import ImageDataGenerator
 from keras.layers import Dense, GlobalAveragePooling2D, Dropout
-from keras.models import Model
+from keras.layers.convolutional import Conv2D
+from keras.layers.pooling import MaxPooling2D
+from keras.models import Model, Sequential
 import shutil as sh
 from keras.applications.inception_v3 import InceptionV3
 from keras.applications.densenet import DenseNet121
@@ -211,6 +213,29 @@ def getInceptionV3Architecture(classes, dropoutRate):
 
     return model
 
+def getMyCNN(classes, dropoutRate):
+    model = Sequential()
+
+    model.add(Conv2D(512, 4, activation='relu', input_shape=(224, 224, 3)))
+    model.add(MaxPooling2D((2, 2)))
+    model.add(Conv2D(1024, 4, activation='relu'))
+    model.add(Conv2D(1024, 4, activation='relu'))
+    model.add(MaxPooling2D((2, 2)))
+    model.add(Conv2D(1024, 4, activation='relu'))
+    model.add(Conv2D(1024, 4, activation='relu'))
+    model.add(MaxPooling2D((2, 2)))
+
+    model.add(Flatten())
+
+    model.add(Dense(512, activation='relu', kernel_initializer='random_uniform', bias_initializer='random_uniform',
+                    bias_regularizer=regularizers.l2(0.01)))
+
+    model.add(Dense(len(classes), activation='softmax', kernel_initializer='random_uniform',
+                        bias_initializer='random_uniform', bias_regularizer=regularizers.l2(0.01), name='predictions'))
+
+    return model
+
+
 
 def setLayersToRetrain(model, modelArchitecture):
     if modelArchitecture == 'InceptionV3':
@@ -237,7 +262,7 @@ def setLayersToRetrain(model, modelArchitecture):
             layer.trainable = True
 
 
-def initialTraining(optimazerLastLayer, noOfEpochs, batchSize, savedModelName, train_generator, validation_generator,
+def initialTraining(optimizerLastLayer, noOfEpochs, batchSize, savedModelName, train_generator, validation_generator,
                     model, modelArchitecture, lr_decay, learningRate):
     # compile the model and train the top layer only
 
@@ -285,7 +310,7 @@ def finetuningTraining(learningRate, noOfEpochs, batchSize, savedModelName, trai
     serializeModel(model, savedModelName + "_finalModel")
 
 
-def model(learningRate, optimazerLastLayer, noOfEpochs, batchSize, savedModelName, srcImagesDir, labelsFile,
+def model(learningRate, optimizerLastLayer, noOfEpochs, batchSize, savedModelName, srcImagesDir, labelsFile,
           modelArchitecture, dropoutRate, lr_decay):
     classes, train_generator, validation_generator = prepareDataGenerators(batchSize, srcImagesDir, labelsFile)
 
@@ -293,10 +318,12 @@ def model(learningRate, optimazerLastLayer, noOfEpochs, batchSize, savedModelNam
         model = getVGG16Architecture(classes, dropoutRate)
     elif modelArchitecture == 'VGG19':
         model = getVGG19Architecture(classes, dropoutRate)
-    else:
+    elif modelArchitecture == "InceptionV3":
         model = getInceptionV3Architecture(classes, dropoutRate)
+    else:
+        model = getMyCNN(classes, dropoutRate)
 
-    initialTraining(optimazerLastLayer, noOfEpochs, batchSize, savedModelName, train_generator, validation_generator,
+    initialTraining(optimizerLastLayer, noOfEpochs, batchSize, savedModelName, train_generator, validation_generator,
                     model, modelArchitecture, lr_decay, learningRate)
 
     setLayersToRetrain(model, modelArchitecture)
@@ -362,11 +389,11 @@ def parse_arguments(argv):
     parser.add_argument('--optimizer_last_layer', type=str, choices=['ADAGRAD', 'ADADELTA', 'ADAM', 'RMSPROP', 'MOM'],
                         help='The optimization algorithm to use', default='RMSPROP')
 
-    parser.add_argument('--model', type=str, choices=['VGG19', 'VGG16', 'InceptionV3'],
-                        help='The optimization algorithm to use', default='VGG16')
+    parser.add_argument('--model', type=str, choices=['VGG19', 'VGG16', 'InceptionV3', "MyCNN"],
+                        help='The optimization algorithm to use', default='MyCNN')
 
     parser.add_argument('--no_of_epochs', type=int,
-                        help='Number of epochs to run.', default=500)
+                        help='Number of epochs to run.', default=10)
 
     parser.add_argument('--batch_size', type=int,
                         help='Number of images to process in a batch.', default=64)
