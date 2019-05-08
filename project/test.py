@@ -30,13 +30,15 @@ Jonathan Krause, Michael Stark, Jia Deng, Li Fei-Fei
 import os
 import argparse
 import sys
+import random
+import shutil as sh
 from pprint import pprint
 import scipy.io as sio
 from keras.preprocessing.image import ImageDataGenerator
 from keras.layers import Dense, GlobalAveragePooling2D, Dropout
 from keras.layers.convolutional import Conv2D
 from keras.layers.pooling import MaxPooling2D
-from keras.models import Model, Sequential
+from keras.models import Model, Sequential, model_from_json
 import shutil as sh
 from keras.applications.inception_v3 import InceptionV3
 from keras.applications.densenet import DenseNet121
@@ -52,9 +54,31 @@ from keras import backend as K
 
 train_data_dir = 'cars_train'
 val_data_dir = 'cars_test'
-nb_train_samples = 8144
-nb_val_samples = 8041
+nb_train_samples = 843
+nb_val_samples = 831
 
+def evaluate(learning_rate, lr_decay):
+    test_datagen = ImageDataGenerator(rescale=1. / 255)
+    test_generator = test_datagen.flow_from_directory(
+        "/home/cjw44/allCars/car_ims/cars_test",
+        target_size=(224, 224),
+        batch_size=16,
+        class_mode='categorical')
+
+    # load json and create model
+    json_file = open(".carRecognition_finalModel" + '.json', 'r')
+    loaded_model_json = json_file.read()
+    json_file.close()
+    loaded_model = model_from_json(loaded_model_json)
+    # load weights into new model
+    loaded_model.load_weights(".carRecognition_finalModel" + '.h5')
+    print('Loaded model from disk')
+
+    # evaluate loaded model on test data
+    sgd = SGD(lr=learning_rate, decay=lr_decay, momentum=0.9, nesterov=True)
+    loaded_model.compile(optimizer=sgd, loss='categorical_crossentropy', metrics=['accuracy'])
+    score = loaded_model.evaluate_generator(test_generator, 3957 / 16, workers=6)
+    print("%s: %.2f%%" % (loaded_model.metrics_names[1], score[1] * 100))
 
 # Creates an array with following values: picture name, picture category ID, train/validation label       
 def readData(matFile):
@@ -216,21 +240,21 @@ def getInceptionV3Architecture(classes, dropoutRate):
 def getMyCNN(classes, dropoutRate):
     model = Sequential()
 
-    model.add(Conv2D(512, 4, activation='relu', input_shape=(224, 224, 3)))
+    model.add(Conv2D(256, 4, activation='relu', input_shape=(224, 224, 3)))
     model.add(MaxPooling2D((2, 2)))
-    model.add(Conv2D(1024, 4, activation='relu'))
-    model.add(Conv2D(1024, 4, activation='relu'))
+    model.add(Conv2D(256, 4, activation='relu'))
+    model.add(Conv2D(512, 4, activation='relu'))
     model.add(MaxPooling2D((2, 2)))
-    model.add(Conv2D(1024, 4, activation='relu'))
-    model.add(Conv2D(1024, 4, activation='relu'))
+    model.add(Conv2D(512, 4, activation='relu'))
+    model.add(Conv2D(512, 4, activation='relu'))
     model.add(MaxPooling2D((2, 2)))
 
     model.add(Flatten())
 
-    model.add(Dense(512, activation='relu', kernel_initializer='random_uniform', bias_initializer='random_uniform',
+    model.add(Dense(256, activation='relu', kernel_initializer='random_uniform', bias_initializer='random_uniform',
                     bias_regularizer=regularizers.l2(0.01)))
 
-    model.add(Dense(len(classes), activation='softmax', kernel_initializer='random_uniform',
+    model.add(Dense(20, activation='softmax', kernel_initializer='random_uniform',
                         bias_initializer='random_uniform', bias_regularizer=regularizers.l2(0.01), name='predictions'))
 
     return model
@@ -259,6 +283,11 @@ def setLayersToRetrain(model, modelArchitecture):
             layer.trainable = False
 
         for layer in model.layers[17:]:
+            layer.trainable = True
+    else:
+        for layer in model.layers[:5]:
+            layer.trainable = False
+        for layer in model.layers[5:]:
             layer.trainable = True
 
 
@@ -330,6 +359,8 @@ def model(learningRate, optimizerLastLayer, noOfEpochs, batchSize, savedModelNam
 
     finetuningTraining(learningRate, noOfEpochs, batchSize, savedModelName, train_generator, validation_generator,
                        model, lr_decay)
+
+    evaluate(learningRate, lr_decay)
 
 
 def main(args):
