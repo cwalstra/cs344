@@ -47,7 +47,7 @@ from keras.applications.vgg19 import VGG19
 from keras.applications.vgg16 import VGG16
 from keras.optimizers import SGD, RMSprop
 from matplotlib import pyplot as plt
-from keras import regularizers
+from keras iport regularizers
 from keras.layers.core import Flatten
 from keras.layers.normalization import BatchNormalization
 from keras import backend as K
@@ -66,12 +66,12 @@ def evaluate(learning_rate, lr_decay):
         class_mode='categorical')
 
     # load json and create model
-    json_file = open(".carRecognition_finalModel" + '.json', 'r')
+    json_file = open("./carRecognition_finalModel" + '.json', 'r')
     loaded_model_json = json_file.read()
     json_file.close()
     loaded_model = model_from_json(loaded_model_json)
     # load weights into new model
-    loaded_model.load_weights(".carRecognition_finalModel" + '.h5')
+    loaded_model.load_weights("./carRecognition_finalModel" + '.h5')
     print('Loaded model from disk')
 
     # evaluate loaded model on test data
@@ -169,7 +169,7 @@ def getVGG16Architecture(classes, dropoutRate):
     x = Dropout(dropoutRate)(x)
 
     # add logistic layer with all car classes
-    predictions = Dense(len(classes), activation='softmax', kernel_initializer='random_uniform',
+    predictions = Dense(20, activation='softmax', kernel_initializer='random_uniform',
                         bias_initializer='random_uniform', bias_regularizer=regularizers.l2(0.01), name='predictions')(
         x)
 
@@ -199,7 +199,7 @@ def getVGG19Architecture(classes, dropoutRate):
     x = Dropout(dropoutRate)(x)
 
     # add logistic layer with all car classes
-    predictions = Dense(len(classes), activation='softmax', kernel_initializer='random_uniform',
+    predictions = Dense(20, activation='softmax', kernel_initializer='random_uniform',
                         bias_initializer='random_uniform', bias_regularizer=regularizers.l2(0.01), name='predictions')(
         x)
 
@@ -330,8 +330,7 @@ def finetuningTraining(learningRate, noOfEpochs, batchSize, savedModelName, trai
         steps_per_epoch=nb_train_samples // batchSize,
         epochs=noOfEpochs,
         validation_data=validation_generator,
-        validation_steps=nb_val_samples // batchSize,
-        callbacks=[earlystop])
+        validation_steps=nb_val_samples // batchSize,        callbacks=[earlystop])
     plt.clf()
     plt.plot(history.history['val_acc'], 'r')
     plt.plot(history.history['acc'], 'b')
@@ -356,6 +355,7 @@ def model(learningRate, optimizerLastLayer, noOfEpochs, batchSize, savedModelNam
                     model, modelArchitecture, lr_decay, learningRate)
 
     setLayersToRetrain(model, modelArchitecture)
+
 
     finetuningTraining(learningRate, noOfEpochs, batchSize, savedModelName, train_generator, validation_generator,
                        model, lr_decay)
@@ -424,7 +424,7 @@ def parse_arguments(argv):
                         help='The optimization algorithm to use', default='MyCNN')
 
     parser.add_argument('--no_of_epochs', type=int,
-                        help='Number of epochs to run.', default=10)
+                        help='Number of epochs to run.', default=3)
 
     parser.add_argument('--batch_size', type=int,
                         help='Number of images to process in a batch.', default=64)
