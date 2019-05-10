@@ -53,9 +53,9 @@ from keras.layers.normalization import BatchNormalization
 from keras import backend as K
 
 train_data_dir = 'cars_train'
-val_data_dir = 'cars_test'
-nb_train_samples = 843
-nb_val_samples = 831
+val_data_dir = 'cars_val'
+nb_train_samples = 1043
+nb_val_samples = 300
 
 def evaluate(learning_rate, lr_decay):
     test_datagen = ImageDataGenerator(rescale=1. / 255)

@@ -15,7 +15,27 @@ To run the code:
 3. Change the file paths to match the paths that you used.
 4. Run the script with the process_data argument as true
 5. Delete most of the folders, leaving only the following cars
-    1. 
+    1. Aston Martin V8 Vantage Coupe 2012 
+    2. Audi R8 Coupe 2012
+    3. Audi TT RS Coupe 2012
+    4. Bentley Mulsanne Sedan 2011
+    5. BMW M3 Coupe 2012
+    6. Bugatti Veyron 16.4 Coupe 2009
+    7. Cadillac CTS-V Sedan 2012
+    8. Chevrolet Corvette ZR1 2012
+    9. Dodge Challenger SRT8 2011
+    10. Ferrari 458 Italia Coupe 2012
+    11. Ford GT Coupe 2006
+    12. Jeep Grand Cherokee SUV 2012
+    13. Jeep Wrangler SUV 2012
+    14. Lamborghini Reventon Coupe 2008
+    15. Land Rover Range Rover SUV 2012
+    16. Porsche Panamera Sedan 2012
+    17. Tesla Model S Sedan 2012
+    18. Toyota 4Runner SUV 2012
+    19. Volkswagen Golf Hatchback 2012
+    20. Volvo C30 Hatchback 2012
+    
 6. Experiment
 
 Code for this work was drawn from: https://github.com/michalgdak/car-recognition
