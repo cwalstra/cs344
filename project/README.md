@@ -13,7 +13,7 @@ To run the code:
 1. Download the tarball of all images from https://ai.stanford.edu/~jkrause/cars/car_dataset.html
 2. Untar the images
 3. Change the file paths to match the paths that you used.
-4. Run the script with the process_data argument as true
+4. Run the script with the process_data argument as true and the validation directory as car_test
 5. Delete most of the folders, leaving only the following cars
     1. Aston Martin V8 Vantage Coupe 2012 
     2. Audi R8 Coupe 2012
@@ -36,7 +36,11 @@ To run the code:
     19. Volkswagen Golf Hatchback 2012
     20. Volvo C30 Hatchback 2012
     
-6. Experiment
+6. Create a new folder called car_val and create one folder for each of the 20 cars listed above, named exactly the same way.
+   Change the name of the validation directory back to car_val
+7. Go into the test folder, and move the first 10 images into the corresponding training folder and the next 15 into the 
+   corresponding folder in the validation folder.
+8. Experiment
 
 Code for this work was drawn from: https://github.com/michalgdak/car-recognition
 
