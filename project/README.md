@@ -10,7 +10,7 @@ Operational Functions\
 Start Functions
 
 To run the code:
-1. Download the tarball of all images from https://ai.stanford.edu/~jkrause/cars/car_dataset.html
+1. Download the devkit and the tarball of both testing and training images from https://ai.stanford.edu/~jkrause/cars/car_dataset.html
 2. Untar the images
 3. Change the file paths to match the paths that you used.
 4. Run the script with the process_data argument as true and the validation directory as car_test
