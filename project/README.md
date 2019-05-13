@@ -3,17 +3,16 @@
 This project implements a number of Convolutional Neural Networks (CNNs) that identify a car's model from a picture of the car.  
 
 The modules of code for this project:\
-Imports\
-Evaluation and Model Handling functions\
-Network functions\
-Operational Functions\
-Start Functions
+utilityFunctions.py: contains evaluation and data handling functions\
+architectures.py: contains functions that define the architecture options\
+\
+main.py: allows the code to run
 
 To run the code:
 1. Download the devkit and the tarball of both testing and training images from https://ai.stanford.edu/~jkrause/cars/car_dataset.html
-2. Untar the images
-3. Change the file paths to match the paths that you used.
-4. Run the script with the process_data argument as true and the validation directory as car_test
+2. Untar the images and the devkit
+3. Change the file paths in main to match the paths that you used.
+4. Run main.py with the process_data argument as true and the validation directory as car_test
 5. Delete most of the folders, leaving only the following cars
     1. Aston Martin V8 Vantage Coupe 2012 
     2. Audi R8 Coupe 2012
@@ -40,7 +39,7 @@ To run the code:
    Change the name of the validation directory back to car_val
 7. Go into the test folder, and move the first 10 images into the corresponding training folder and the next 15 into the 
    corresponding folder in the validation folder.
-8. Experiment
+8. Run main.py to experiment, changing arguments as necessary
 
 Code for this work was drawn from: https://github.com/michalgdak/car-recognition
 
