@@ -1,12 +1,15 @@
 **Car Identification Convolutional Neural Network**
 
+
 This project implements a number of Convolutional Neural Networks (CNNs) that identify a car's model from a picture of the car.  
+
 
 The modules of code for this project:\
 utilityFunctions.py: contains evaluation and data handling functions\
 architectures.py: contains functions that define the architecture options\
-\
+runFunctions.py: contains functions that control the training of the model\
 main.py: allows the code to run
+
 
 To run the code:
 1. Download the devkit and the tarball of both testing and training images from https://ai.stanford.edu/~jkrause/cars/car_dataset.html
