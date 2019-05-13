@@ -47,7 +47,7 @@ from keras.applications.vgg19 import VGG19
 from keras.applications.vgg16 import VGG16
 from keras.optimizers import SGD, RMSprop
 from matplotlib import pyplot as plt
-from keras iport regularizers
+from keras import regularizers
 from keras.layers.core import Flatten
 from keras.layers.normalization import BatchNormalization
 from keras import backend as K
@@ -240,14 +240,16 @@ def getInceptionV3Architecture(classes, dropoutRate):
 def getMyCNN(classes, dropoutRate):
     model = Sequential()
 
-    model.add(Conv2D(256, 4, activation='relu', input_shape=(224, 224, 3)))
+    model.add(Conv2D(64, 3, activation='relu', input_shape=(224, 224, 3)))
     model.add(MaxPooling2D((2, 2)))
-    model.add(Conv2D(256, 4, activation='relu'))
-    model.add(Conv2D(512, 4, activation='relu'))
+    model.add(Conv2D(128, 3, activation='relu'))
     model.add(MaxPooling2D((2, 2)))
-    model.add(Conv2D(512, 4, activation='relu'))
-    model.add(Conv2D(512, 4, activation='relu'))
+    model.add(Conv2D(256, 3, activation='relu'))
     model.add(MaxPooling2D((2, 2)))
+    #model.add(Conv2D(512, 3, activation='relu'))
+    #model.add(MaxPooling2D((2, 2)))
+    #model.add(Conv2D(512, 3, activation='relu'))
+    #model.add(MaxPooling2D((2, 2)))
 
     model.add(Flatten())
 
@@ -412,10 +414,10 @@ def parse_arguments(argv):
                         help='Initial learning rate.', default=0.001)
 
     parser.add_argument('--dropout_rate', type=float,
-                        help='Fraction of the input units to drop.', default=0.7)
+                        help='Fraction of the input units to drop.', default=0.4)
 
     parser.add_argument('--lr_decay', type=float,
-                        help='Learning rate decay', default=1e-4)
+                        help='Learning rate decay', default=0)
 
     parser.add_argument('--optimizer_last_layer', type=str, choices=['ADAGRAD', 'ADADELTA', 'ADAM', 'RMSPROP', 'MOM'],
                         help='The optimization algorithm to use', default='RMSPROP')
@@ -424,7 +426,7 @@ def parse_arguments(argv):
                         help='The optimization algorithm to use', default='MyCNN')
 
     parser.add_argument('--no_of_epochs', type=int,
-                        help='Number of epochs to run.', default=3)
+                        help='Number of epochs to run.', default=10)
 
     parser.add_argument('--batch_size', type=int,
                         help='Number of images to process in a batch.', default=64)
